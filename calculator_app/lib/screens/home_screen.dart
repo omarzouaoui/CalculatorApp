@@ -140,7 +140,7 @@ class _CalculatorState extends State<Calculator> {
   }
 
   getBgColor(String text){
-    
+    if(){}
   }
 
 }
