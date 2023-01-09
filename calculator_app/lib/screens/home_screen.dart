@@ -178,14 +178,27 @@ class _CalculatorState extends State<Calculator> {
 
     if(text == "C"){
       if(userInput.isNotEmpty){
-        userInput = userInput.substring(0, userInput.length-1);
+        return userInput = userInput.substring(0, userInput.length-1);
       }
     else{
       return null;
     }
     }
 
+    if(text == "="){
+      result = calculate();
+      if(result.endsWith(".0")){
+        result = result.replaceAll(".0", "");
+        return;
+      }
+    }
+
     userInput = userInput+text;
 
   }
+
+  String calculate(){
+    
+  }
+
 }
