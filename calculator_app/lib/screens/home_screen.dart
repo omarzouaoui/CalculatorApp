@@ -109,7 +109,11 @@ class _CalculatorState extends State<Calculator> {
   Widget CustomButton(String text){
     return InkWell(
       splashColor: Color.fromARGB(255, 190, 189, 189),
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          handleButtons(text);
+        });
+      },
       child: Ink(
         decoration: BoxDecoration(
           color: getBgColor(text),
@@ -162,6 +166,10 @@ class _CalculatorState extends State<Calculator> {
       return Color.fromARGB(255, 104, 204, 159);
     }
     return Color.fromARGB(255, 0, 0, 0);
+  }
+
+  handleButtons(String text){
+    
   }
 
 }
