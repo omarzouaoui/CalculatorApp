@@ -169,7 +169,23 @@ class _CalculatorState extends State<Calculator> {
   }
 
   handleButtons(String text){
-    
-  }
 
+    if(text == "AC"){
+      userInput = "";
+      result = "0";
+      return;
+    }
+
+    if(text == "C"){
+      if(userInput.isNotEmpty){
+        userInput = userInput.substring(0, userInput.length-1);
+      }
+    else{
+      return null;
+    }
+    }
+
+    userInput = userInput+text;
+
+  }
 }
