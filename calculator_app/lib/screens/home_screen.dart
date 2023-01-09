@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -12,6 +13,8 @@ class _CalculatorState extends State<Calculator> {
 
   String userInput = "";
   String result = "0";
+
+  bool mode = false;
 
   List<String> buttonList = [
     "AC",
@@ -39,7 +42,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 190, 189, 189),
+      backgroundColor: mode ? Color.fromARGB(255, 240, 239, 239): Color.fromARGB(255, 44, 42, 42) ,
       body: Column(
         children: [
           SizedBox(
@@ -47,27 +50,59 @@ class _CalculatorState extends State<Calculator> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        ToggleSwitch(
+                        minWidth: 50.0,
+                        initialLabelIndex: 1,
+                        cornerRadius: 10.0,
+                        activeFgColor: Colors.white,
+                        inactiveBgColor: Color.fromARGB(255, 196, 196, 196),
+                        inactiveFgColor: Color.fromARGB(255, 0, 0, 0),
+                        totalSwitches: 2,
+                        icons: [Icons.mode_night , Icons.light_mode ],
+                        // labels: ['Night', 'Light'],
+                        activeBgColors: [[Color.fromARGB(255, 206, 203, 203)],[Color.fromARGB(255, 51, 50, 50)]],
+                        onToggle: (index) {
+                        setState(() {
+                          if(index == 0){
+                            mode = true;
+                          }
+                          if(index == 1){
+                          mode = false;
+                          }
+                        });
+                        print(mode);
+                        },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 Container(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 20.0, 0.0),
                   alignment: Alignment.centerRight,
                   child: Text(
                     userInput,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 32,
-                      color: Colors.white
+                      color: mode ? Color.fromARGB(255, 44, 42, 42) : Color.fromARGB(255, 236, 235, 235)
                     ),
                   ),
                 ),
 
                 Container(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(10.0),
                   alignment: Alignment.centerRight,
                   child: Text(
                     result,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 48,
-                      color: Colors.white,
+                      color: mode ? Color.fromARGB(255, 44, 42, 42) : Color.fromARGB(255, 236, 235, 235),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -78,15 +113,14 @@ class _CalculatorState extends State<Calculator> {
           ),
 
           const Divider(
-            color: Colors.white,
+            color: Color.fromARGB(255, 189, 187, 187),
+            thickness: 1,
           ),
 
           Expanded(
             child: Container(
-              // padding: const EdgeInsets.all(10.0),
               padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 20.0),
               margin: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
-              // EdgeInsets.fromLTRB(left, top, right, bottom)
               child: GridView.builder(
                 itemCount: buttonList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -109,7 +143,7 @@ class _CalculatorState extends State<Calculator> {
 
   Widget CustomButton(String text){
     return InkWell(
-      splashColor: Color.fromARGB(255, 190, 189, 189),
+      splashColor: mode ? Colors.white: Color.fromARGB(255, 44, 42, 42),
       onTap: () {
         setState(() {
           handleButtons(text);
@@ -124,7 +158,7 @@ class _CalculatorState extends State<Calculator> {
               color: Colors.white.withOpacity(0.1),
               blurRadius: 4,
               spreadRadius: 0.5,
-              offset: Offset(-3, -3),
+              offset: const Offset(-3, -3),
             )
           ]
         ),
@@ -154,19 +188,19 @@ class _CalculatorState extends State<Calculator> {
       text == "(" || 
       text == ")" 
       ){
-        return Color.fromARGB(255, 252, 100, 100);
+        return const Color.fromARGB(255, 252, 100, 100);
     }
-    return Colors.white;
+    return mode ? Color.fromARGB(255, 32, 32, 32): Color.fromARGB(255, 243, 240, 240);
   }
 
   getBgColor(String text){
     if(text == "AC"){
-        return Color.fromARGB(255, 252, 100, 100);
+        return const Color.fromARGB(255, 252, 100, 100);
     }
     if(text == "="){
-      return Color.fromARGB(255, 104, 204, 159);
+      return const Color.fromARGB(255, 104, 204, 159);
     }
-    return Color.fromARGB(255, 0, 0, 0);
+    return mode ? Color.fromARGB(255, 238, 230, 230) :Color.fromARGB(255, 75, 75, 75);
   }
 
   handleButtons(String text){
@@ -188,9 +222,14 @@ class _CalculatorState extends State<Calculator> {
 
     if(text == "="){
       result = calculate();
+      userInput = result;
+
+      if(userInput.endsWith(".0")){
+        return result = result.replaceAll(".0", "");
+      }
+
       if(result.endsWith(".0")){
-        result = result.replaceAll(".0", "");
-        return;
+        return result = result.replaceAll(".0", "");
       }
     }
 
