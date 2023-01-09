@@ -42,7 +42,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: mode ? Color.fromARGB(255, 240, 239, 239): Color.fromARGB(255, 44, 42, 42) ,
+      backgroundColor: mode ? const Color.fromARGB(255, 240, 239, 239): const Color.fromARGB(255, 44, 42, 42) ,
       body: Column(
         children: [
           SizedBox(
@@ -61,12 +61,12 @@ class _CalculatorState extends State<Calculator> {
                         initialLabelIndex: 1,
                         cornerRadius: 10.0,
                         activeFgColor: Colors.white,
-                        inactiveBgColor: Color.fromARGB(255, 196, 196, 196),
-                        inactiveFgColor: Color.fromARGB(255, 0, 0, 0),
+                        inactiveBgColor: const Color.fromARGB(255, 196, 196, 196),
+                        inactiveFgColor: const Color.fromARGB(255, 0, 0, 0),
                         totalSwitches: 2,
-                        icons: [Icons.mode_night , Icons.light_mode ],
+                        icons: const [Icons.mode_night , Icons.light_mode ],
                         // labels: ['Night', 'Light'],
-                        activeBgColors: [[Color.fromARGB(255, 206, 203, 203)],[Color.fromARGB(255, 51, 50, 50)]],
+                        activeBgColors: const [[Color.fromARGB(255, 206, 203, 203)],[Color.fromARGB(255, 51, 50, 50)]],
                         onToggle: (index) {
                         setState(() {
                           if(index == 0){
@@ -90,19 +90,19 @@ class _CalculatorState extends State<Calculator> {
                     userInput,
                     style: TextStyle(
                       fontSize: 32,
-                      color: mode ? Color.fromARGB(255, 44, 42, 42) : Color.fromARGB(255, 236, 235, 235)
+                      color: mode ? const Color.fromARGB(255, 44, 42, 42) : const Color.fromARGB(255, 236, 235, 235)
                     ),
                   ),
                 ),
 
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   alignment: Alignment.centerRight,
                   child: Text(
                     result,
                     style: TextStyle(
                       fontSize: 48,
-                      color: mode ? Color.fromARGB(255, 44, 42, 42) : Color.fromARGB(255, 236, 235, 235),
+                      color: mode ? const Color.fromARGB(255, 44, 42, 42) : const Color.fromARGB(255, 236, 235, 235),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -143,7 +143,7 @@ class _CalculatorState extends State<Calculator> {
 
   Widget CustomButton(String text){
     return InkWell(
-      splashColor: mode ? Colors.white: Color.fromARGB(255, 44, 42, 42),
+      splashColor: mode ? Colors.white: const Color.fromARGB(255, 44, 42, 42),
       onTap: () {
         setState(() {
           handleButtons(text);
@@ -190,7 +190,7 @@ class _CalculatorState extends State<Calculator> {
       ){
         return const Color.fromARGB(255, 252, 100, 100);
     }
-    return mode ? Color.fromARGB(255, 32, 32, 32): Color.fromARGB(255, 243, 240, 240);
+    return mode ? const Color.fromARGB(255, 32, 32, 32): const Color.fromARGB(255, 243, 240, 240);
   }
 
   getBgColor(String text){
@@ -200,7 +200,7 @@ class _CalculatorState extends State<Calculator> {
     if(text == "="){
       return const Color.fromARGB(255, 104, 204, 159);
     }
-    return mode ? Color.fromARGB(255, 238, 230, 230) :Color.fromARGB(255, 75, 75, 75);
+    return mode ? const Color.fromARGB(255, 238, 230, 230) :const Color.fromARGB(255, 75, 75, 75);
   }
 
   handleButtons(String text){
