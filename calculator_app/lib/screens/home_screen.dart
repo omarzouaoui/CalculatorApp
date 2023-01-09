@@ -38,7 +38,7 @@ class _CalculatorState extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: Color.fromARGB(255, 190, 189, 189),
       body: Column(
         children: [
           SizedBox(
@@ -108,7 +108,7 @@ class _CalculatorState extends State<Calculator> {
 
   Widget CustomButton(String text){
     return InkWell(
-      splashColor: Colors.amberAccent,
+      splashColor: Color.fromARGB(255, 190, 189, 189),
       onTap: () {},
       child: Ink(
         decoration: BoxDecoration(
@@ -128,7 +128,7 @@ class _CalculatorState extends State<Calculator> {
           child: Text(
             text,
             style: TextStyle(
-              color: getBgColor(text),
+              color: getColor(text),
               fontSize: 30,
               fontWeight: FontWeight.bold
             ),
@@ -139,8 +139,29 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
+  getColor(String text){
+    if(
+      text == "/" || 
+      text == "*" || 
+      text == "+" || 
+      text == "-" || 
+      text == "C" || 
+      text == "(" || 
+      text == ")" 
+      ){
+        return Color.fromARGB(255, 252, 100, 100);
+    }
+    return Colors.white;
+  }
+
   getBgColor(String text){
-    if(){}
+    if(text == "AC"){
+        return Color.fromARGB(255, 252, 100, 100);
+    }
+    if(text == "="){
+      return Color.fromARGB(255, 104, 204, 159);
+    }
+    return Color.fromARGB(255, 0, 0, 0);
   }
 
 }
